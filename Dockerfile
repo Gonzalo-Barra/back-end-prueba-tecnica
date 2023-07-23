@@ -1,14 +1,17 @@
-# Usa una imagen base de Python con la versión que necesites
+# Use the official Python image as the base image
 FROM python:3.9
 
-# Establece el directorio de trabajo en /app
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copia los archivos de tu proyecto al contenedor
-COPY . .
+# Copy the requirements.txt file into the container
+COPY requirements.txt .
 
-# Instala las dependencias del proyecto
+# Install the dependencies from the requirements.txt file
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expone el puerto en el que se ejecutará FastAPI
-EXPOSE 8000
+# Copy the rest of the application files into the container
+COPY . .
+
+# Command to run your application
+CMD ["python3", "main.py"]

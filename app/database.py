@@ -4,10 +4,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship   
 from config import Settings
 
-settings = Settings()
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.db_user}:{settings.db_password}@{settings.db_ip}/{settings.db_server_name}"
 
+SQLALCHEMY_DATABASE_URL = f"postgresql://{Settings.db_user}:{Settings.db_password}@{Settings.db_ip}/{Settings.db_server_name}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

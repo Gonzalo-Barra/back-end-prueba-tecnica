@@ -1,7 +1,22 @@
 version: "3.9"
 
 services:
-  postgres:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: api
+    container_name: fastapi
+    command: python3 main.py
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    networks:
+      backend:
+        ipv4_address: 172.21.0.2
+
+  db:
     image: postgres:latest
     container_name: postgres-db
     environment:
@@ -12,12 +27,26 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+    networks:
+      backend:
+        ipv4_address: ${DB_IP}
 
   adminer:
     image: adminer:latest
     container_name: adminer
     ports:
       - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      backend:
+        ipv4_address: 172.21.0.4
+
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
 
 volumes:
   pg_data:
