@@ -1,13 +1,14 @@
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import contacto
+from config import CORS
 
 
 app = FastAPI()
 
 origins = [
-    "http://localhost",
-    "http://localhost:5500"
+    CORS.ip_1,
+    CORS.ip_2
 ]
 
 app.add_middleware(

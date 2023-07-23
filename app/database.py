@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from sqlalchemy import create_engine, Column, BigInteger, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship   
-from config import Settings
+from config import DATABASE
 
 
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{Settings.db_user}:{Settings.db_password}@{Settings.db_ip}/{Settings.db_server_name}"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{DATABASE.db_user}:{DATABASE.db_password}@{DATABASE.db_ip}/{DATABASE.db_server_name}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
